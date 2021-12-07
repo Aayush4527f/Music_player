@@ -1,0 +1,203 @@
+::-webkit-scrollbar{
+    display: none;
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+body{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+#songs{
+    width: 26.6vw;
+    height: 100vh;
+    order: 1;
+    background-color: #000;
+    overflow: scroll;
+}
+.songitem{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 3vh auto;
+}
+.playlist_songitem{
+    width: 46.8vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 3vh auto;
+}
+.song{
+    color: white;
+    order: 2;
+    margin: auto 0 auto 2.5vw;
+}
+.playlist_song{
+    color: white;
+    order: 2;
+    margin: auto 0 auto 0;
+}
+.circle{
+    width: 15px;
+    height: 15px;
+    border: 10px #00C2FF solid;
+    border-radius: 100vw;
+    order: 1;
+    margin-left: 2.5vw;
+    cursor: pointer;
+}
+.rembtn{
+    background-image: url(delete.png);
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    margin-right: 2.5vw;
+    order: 3;
+    cursor: pointer;
+}
+#songs_head{
+    color: white;
+    text-align: center;
+    font-weight: lighter;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+
+
+
+#MyPlaylist{
+    width: 46.8vw;
+    height: 100vh;
+    order: 2;
+    background-color: #17313A;
+}
+#playlist{
+    width: 46.8vw;
+    height: 56vh;
+    /* margin: auto; */
+    overflow: scroll;
+    margin-top: 2.5vh;
+    display: flex;
+    flex-direction: column;
+}
+#playlist_head{
+    color: white;
+    margin-top: 10vh;
+    text-align: center;
+    font-weight: lighter;
+}
+
+
+
+#savebtn{
+    background-color: white;
+    border: 1px white solid;
+    border-radius: 20px;
+    height: 5vh;
+    width: 12.5vw;
+    font-size: large;
+    margin-top: 1vh;
+}
+
+
+
+#bardiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 7.5vh;
+}
+#stime{
+    color: white;
+    margin: 0 1vw;
+}
+#bar{
+    width: 40vw;
+    height: 1vh;
+    background-color: black;
+}
+#edtime{
+    color: white;
+    margin: 0 1vw;
+}
+
+
+.btn{
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    background-size: cover;
+    margin: 0 1vw;
+    cursor: pointer;
+}
+#btndiv{
+    margin-top: 2.5vh;
+}
+#shufflebtn{
+    background-image: url(shuffle.png);
+}
+#prevbtn{
+    background-image: url(prev.svg);
+    width: 25px;
+    height: 25px;
+}
+#playbtn{
+    background-image: url(play.svg);
+    /* background-image: url(pause.svg); */
+}
+#nextbtn{
+    background-image: url(next.svg);
+    width: 25px;
+    height: 25px;
+}
+#clearbtn{
+    background-image: url(clear.png);
+}
+
+
+
+#playing{
+    width: 26.6vw;
+    height: 100vh;
+    order: 3;
+    background-color: #43575E;
+}
+#playing_head{
+    color: white;
+    font-weight: lighter;
+    text-align: center;
+    margin-top: 5vh;
+}
+#playing_img{
+    background-image: url(bg.jpg);
+    background-size: cover;
+    height: 65vh;
+    width: 20vw;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 5vh;
+}
+#playing_name{
+    color: white;
+    text-align: center;
+    margin-top: 2.5vh;
+}
+
+
+
+
+
+
+.flexcenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

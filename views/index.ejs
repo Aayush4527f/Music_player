@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="songs">
+        <h2 id="songs_head">Add songs to playlist</h2>
+    </div>
+    <div id="MyPlaylist">
+        <h1 id="playlist_head">My playlist</h1>
+        <div id="playlist"></div>
+        <div id="savebtndiv" class="flexcenter">
+            <button id="savebtn" onclick="savePlaylist()">Save Playlist</button>
+        </div>
+        <div id="bardiv">
+            <p id="stime">1:30</p>
+            <div id="bar"></div>
+            <p id="edtime">3:35</p>
+        </div>
+        <div id="btndiv" class="flexcenter">
+            <button class="btn" id="shufflebtn" onclick="shuffle()"></button>
+            <button class="btn" id="prevbtn"></button>
+            <button class="btn" id="playbtn"></button>
+            <button class="btn" id="nextbtn"></button>
+            <button class="btn" id="clearbtn" onclick="clearPlaylist(true)"></button>
+        </div>
+    </div>
+    <div id="playing">
+        <h1 id="playing_head">Now playing</h1>
+        <div id="playing_img"></div>
+        <h2 id="playing_name">Jellyfish</h2>
+    </div>
+    <audio src="" id="audio"></audio>
+    <div class="playerdiv" style="display: none;">
+        <div class="image"></div>
+        <div class="upperbtns">
+            <button id="delbtn" onclick="delFrmPlaylist()" class="btn"></button>
+            <button id="previousbtn" class="btn" onclick="previous()"></button>
+            <button id="playbtn" class="btn"></button>
+            <button id="nextbtn" class="btn" onclick="next()"></button>
+            <button id="shufflebtn" onclick="shufflePlaylist()" class="btn"></button>
+        </div>
+        <div class="lowerbtns">
+            <button id="clearbtn" onclick="clearPlaylist()" class="btn">Clear Playlist</button> 
+            <button id="savebtn" onclick="savePlaylist()" class="btn">Save</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
