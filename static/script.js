@@ -51,7 +51,7 @@ fetch('/saved').then((response) => response.json())
     });
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
-        addSong(savedSongs[i])
+        addSong(savedSongs[i],true)
     }
 }
 function initialise() {
@@ -67,7 +67,7 @@ function initialise() {
         song.innerText = song_name
 
         circle.className = 'circle'
-        circle.addEventListener('click', () => { addSong(songs[i]); playlistDiv.scrollTop = playlistDiv.scrollHeight; })
+        circle.addEventListener('click', () => { addSong(songs[i],true); playlistDiv.scrollTop = playlistDiv.scrollHeight; })
 
         allSongsDiv.appendChild(songitem)
 
@@ -89,11 +89,10 @@ function savePlaylist() {
     document.cookie = cname + "=" + JSON.stringify(playlist) + ";" + expires + ";path=/";
 }
 
-function addSong(s) {
+function addSong(s,p) {
     let iofs = songs.indexOf(s)
 
-    playlist.push(songs[iofs])
-
+    if(p){playlist.push(songs[iofs])}
 
     let song_name = songs[iofs].substring(0, songs[iofs].length - 4)
 
@@ -133,10 +132,10 @@ function delSong(songSrc) {
 }
 
 
-function clearPlaylist() {
+function clearPlaylist(p) {
     let l = document.getElementsByClassName('playlist_songitem').length
     for (let i = 0; i < l; i++) {
-        playlist.shift()
+        if(p){playlist.shift()}
         let j = song.length - 1
         songitem[j].remove()
     }
@@ -144,12 +143,6 @@ function clearPlaylist() {
 
 function shuffle() {
     let currentIndex = songitem.length, randomIndex;
-    let arr = []
-    for (let i = 0; i < songitem.length; i++) {
-        arr.push(songitem[i].style.order)
-    }
-    console.log(arr)
-    console.log(playlist)
     while (currentIndex != 0) {
 
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -157,39 +150,11 @@ function shuffle() {
 
         [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
 
-        [arr[randomIndex], arr[currentIndex]] = [
-            arr[currentIndex], arr[randomIndex]];
-
-        [songitem[randomIndex].style.order, songitem[currentIndex].style.order] = [
-            songitem[currentIndex].style.order, songitem[randomIndex].style.order]
-
-            // console.log(randomIndex)
         }
-        console.log(arr)
-        console.log(playlist)
-    // console.log(playlist)
-}
-/*
-shuffle is not working differently with array and this order property
-*/
-
-/*
-function shufflePlaylist() {
-    let playlist_songs = document.getElementsByClassName('playlist_song')
-    let currentIndex = playlist_songs.length, randomIndex;
-    while (currentIndex != 0) {
-
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        [playlist[currentIndex], playlist[randomIndex]] = [
-            playlist[randomIndex], playlist[currentIndex]];
-
-        [playlist_songs[currentIndex].innerText, playlist_songs[randomIndex].innerText] = [
-            playlist_songs[randomIndex].innerText, playlist_songs[currentIndex].innerText];
-
-        [playlist_songs[currentIndex].value, playlist_songs[randomIndex].value] = [
-            playlist_songs[randomIndex].value, playlist_songs[currentIndex].value];
+        for (const x of songitem) {
+            clearPlaylist(false)
+        }
+        for (const x of playlist) {
+            addSong(x,false)
+        }
     }
-}
-*/
