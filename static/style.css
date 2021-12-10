@@ -10,6 +10,10 @@ body{
     display: flex;
     flex-direction: row;
 }
+p{
+    color: white;
+    margin: 0 auto;
+}
 
 
 
@@ -105,9 +109,6 @@ body{
     font-size: large;
     margin-top: 1vh;
 }
-
-
-
 #bardiv{
     display: flex;
     flex-direction: row;
@@ -116,16 +117,21 @@ body{
 }
 #stime{
     color: white;
-    margin: 0 1vw;
+    margin-right: 1vw;
 }
-#bar{
-    width: 40vw;
+#main-bar{
     height: 1vh;
+    background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(95,0,128,1) 100%);
+}
+#black-bar{
+    height: 1vh;
+    width: 40vw;
+    margin: auto;
     background-color: black;
 }
 #edtime{
     color: white;
-    margin: 0 1vw;
+    margin-left: 1vw;
 }
 
 

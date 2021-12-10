@@ -18,9 +18,13 @@
             <button id="savebtn" onclick="savePlaylist()">Save Playlist</button>
         </div>
         <div id="bardiv">
-            <p id="stime">1:30</p>
-            <div id="bar"></div>
-            <p id="edtime">3:35</p>
+            <p id="currTime"></p>
+            <div id="black-bar">
+                <div id="main-bar"></div>
+              </div>
+
+
+            <p id="duration"></p>
         </div>
         <div id="btndiv" class="flexcenter">
             <button class="btn" id="shufflebtn" onclick="shuffle()"></button>
@@ -35,21 +39,7 @@
         <div id="playing_img"></div>
         <h2 id="playing_name">Jellyfish</h2>
     </div>
-    <audio src="" id="audio"></audio>
-    <div class="playerdiv" style="display: none;">
-        <div class="image"></div>
-        <div class="upperbtns">
-            <button id="delbtn" onclick="delFrmPlaylist()" class="btn"></button>
-            <button id="previousbtn" class="btn" onclick="previous()"></button>
-            <button id="playbtn" class="btn"></button>
-            <button id="nextbtn" class="btn" onclick="next()"></button>
-            <button id="shufflebtn" onclick="shufflePlaylist()" class="btn"></button>
-        </div>
-        <div class="lowerbtns">
-            <button id="clearbtn" onclick="clearPlaylist()" class="btn">Clear Playlist</button> 
-            <button id="savebtn" onclick="savePlaylist()" class="btn">Save</button>
-        </div>
-    </div>
+    <audio src="" id="audio" onended="next()"></audio>
 </body>
 <script src="script.js"></script>
 </html>

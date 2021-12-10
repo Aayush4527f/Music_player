@@ -3,13 +3,13 @@
     ------------------------------------------------------------------
     clear playlist                              (done for now atleast)
     ------------------------------------------------------------------
-    shuffle playlist
+    shuffle playlist                            (done for now atleast)
     ------------------------------------------------------------------
-    play button
+    play button                                 (done for now atleast)
     ------------------------------------------------------------------
-    previous btn
+    previous btn                                (done for now atleast)
     ------------------------------------------------------------------
-    next btn
+    next btn                                    (done for now atleast)
     ------------------------------------------------------------------
     make playlist draggable
     ------------------------------------------------------------------
@@ -18,22 +18,21 @@
     start and end time
     ------------------------------------------------------------------
     thumbnail and name of song on right side
-*/
-
-
-
-
-
-
+    */
+   
 let songs = []
 let savedSongs = []
 let playlist = []
+let index = 0
 let a = document.getElementById('audio')
 let songitem = document.getElementsByClassName('playlist_songitem')
 let song = document.getElementsByClassName('playlist_song')
 const PORT = 8000
 const playlistDiv = document.getElementById('playlist')
 const allSongsDiv = document.getElementById('songs')
+document.getElementById('playbtn').addEventListener('click',()=>{playBtnFunc(index)})
+document.getElementById('nextbtn').addEventListener('click',()=>{next()})
+document.getElementById('prevbtn').addEventListener('click',()=>{previous()})
 
 fetch('/songslist').then((response) => response.json())
     .then((data) => {
@@ -139,6 +138,7 @@ function clearPlaylist(p) {
         let j = song.length - 1
         songitem[j].remove()
     }
+    playBtnFunc(0,true)
 }
 
 function shuffle() {
@@ -149,12 +149,74 @@ function shuffle() {
         currentIndex--;
 
         [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
-
-        }
-        for (const x of songitem) {
-            clearPlaylist(false)
-        }
-        for (const x of playlist) {
-            addSong(x,false)
-        }
     }
+    for (const x of songitem) {
+        clearPlaylist(false)
+    }
+    for (const x of playlist) {
+        addSong(x,false)
+    }
+    playBtnFunc(0,true)
+}
+
+function playBtnFunc(index,p) {
+    if (!a.paused && a.currentTime > 1 && !p) {
+    a.pause()
+    // console.log('paused')
+    } else {
+        /*if (!playlist[index]) {
+            a.src = ''
+        } else*/ if(a.src == `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
+            a.play()
+            // console.log('played',a.src,`http://localhost:${PORT}/${encodeURI(playlist[index])}`)
+        }else if(a.src != `http://localhost:${PORT}/${encodeURI(playlist[index])}`){
+            // console.log('setted src',a.src,`http://localhost:${PORT}/${encodeURI(playlist[index])}`)
+            a.src = playlist[index]
+        }
+        a.play()
+    }
+}
+function next() {
+    if (index<playlist.length-1) {
+        index++
+        playBtnFunc(index,true)
+    }
+}
+function previous() {
+    if (index>0) {
+        index--
+        playBtnFunc(index,true)
+    }
+}
+function convertHMS(value) {
+const sec = parseInt(value, 10); // convert value to number if it's string
+let hours   = Math.floor(sec / 3600); // get hours
+let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+// add 0 if value < 10; Example: 2 => 02
+if (hours   < 10) {hours   = "0"+hours;}
+if (minutes < 10) {minutes = "0"+minutes;}
+if (seconds < 10) {seconds = "0"+seconds;}
+return minutes+':'+seconds; // Return is MM : SS
+}
+
+function progressBar() {
+//  time part
+    let x = convertHMS(a.currentTime)
+    let y = convertHMS(a.duration)
+    let p1 = document.getElementById('currTime')
+    let p2 = document.getElementById('duration')
+    p1.innerText = x
+    p2.innerText = y
+    if(y=='NaN:NaN'){p2.innerText = '00:00'}else{p2.innerText = y}
+
+//  bar part
+    let black_bar = document.getElementById('black-bar')
+    let main_bar = document.getElementById('main-bar')
+    let p = a.currentTime*100/a.duration
+    main_bar.style.width = `${p}%`
+    
+}
+setInterval(() => {
+    progressBar()
+}, 100);
