@@ -19,7 +19,7 @@
     ------------------------------------------------------------------
     thumbnail and name of song on right side
     */
-   
+
 let songs = []
 let savedSongs = []
 let playlist = []
@@ -27,12 +27,13 @@ let index = 0
 let a = document.getElementById('audio')
 let songitem = document.getElementsByClassName('playlist_songitem')
 let song = document.getElementsByClassName('playlist_song')
+let playlist_circle = document.getElementsByClassName('playlist_circle')
 const PORT = 8000
 const playlistDiv = document.getElementById('playlist')
 const allSongsDiv = document.getElementById('songs')
-document.getElementById('playbtn').addEventListener('click',()=>{playBtnFunc(index)})
-document.getElementById('nextbtn').addEventListener('click',()=>{next()})
-document.getElementById('prevbtn').addEventListener('click',()=>{previous()})
+document.getElementById('playbtn').addEventListener('click', () => { playBtnFunc(index) })
+document.getElementById('nextbtn').addEventListener('click', () => { next() })
+document.getElementById('prevbtn').addEventListener('click', () => { previous() })
 
 fetch('/songslist').then((response) => response.json())
     .then((data) => {
@@ -50,7 +51,7 @@ fetch('/saved').then((response) => response.json())
     });
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
-        addSong(savedSongs[i],true)
+        addSong(savedSongs[i], true)
     }
 }
 function initialise() {
@@ -66,7 +67,7 @@ function initialise() {
         song.innerText = song_name
 
         circle.className = 'circle'
-        circle.addEventListener('click', () => { addSong(songs[i],true); playlistDiv.scrollTop = playlistDiv.scrollHeight; })
+        circle.addEventListener('click', () => { addSong(songs[i], true); playlistDiv.scrollTop = playlistDiv.scrollHeight;})
 
         allSongsDiv.appendChild(songitem)
 
@@ -88,10 +89,10 @@ function savePlaylist() {
     document.cookie = cname + "=" + JSON.stringify(playlist) + ";" + expires + ";path=/";
 }
 
-function addSong(s,p) {
+function addSong(s, p) {
     let iofs = songs.indexOf(s)
 
-    if(p){playlist.push(songs[iofs])}
+    if (p) { playlist.push(songs[iofs]) }
 
     let song_name = songs[iofs].substring(0, songs[iofs].length - 4)
 
@@ -104,7 +105,8 @@ function addSong(s,p) {
     song.className = 'playlist_song'
     song.innerText = song_name
 
-    circle.className = 'circle'
+    // circle.className = 'circle'
+    circle.className = 'playlist_circle'
 
     rembtn.className = 'rembtn'
     rembtn.addEventListener('click', () => { delSong(songs[iofs]) })
@@ -128,17 +130,19 @@ function delSong(songSrc) {
     }
     let iofs = songnames.indexOf(songSrc.substring(0, songSrc.length - 4))
     songitem[iofs].remove()
+    a.pause()
 }
 
 
 function clearPlaylist(p) {
     let l = document.getElementsByClassName('playlist_songitem').length
     for (let i = 0; i < l; i++) {
-        if(p){playlist.shift()}
+        if (p) { playlist.shift() }
         let j = song.length - 1
         songitem[j].remove()
     }
-    playBtnFunc(0,true)
+    index = 0
+    playBtnFunc(index, true)
 }
 
 function shuffle() {
@@ -154,68 +158,70 @@ function shuffle() {
         clearPlaylist(false)
     }
     for (const x of playlist) {
-        addSong(x,false)
+        addSong(x, false)
     }
-    playBtnFunc(0,true)
+    index = 0
+    playBtnFunc(index, true)
 }
 
-function playBtnFunc(index,p) {
+function playBtnFunc(index, p) {
     if (!a.paused && a.currentTime > 1 && !p) {
-    a.pause()
-    // console.log('paused')
+        a.pause()
+        // console.log('paused')
     } else {
-        /*if (!playlist[index]) {
-            a.src = ''
-        } else*/ if(a.src == `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
+        if (a.src == `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
             a.play()
             // console.log('played',a.src,`http://localhost:${PORT}/${encodeURI(playlist[index])}`)
-        }else if(a.src != `http://localhost:${PORT}/${encodeURI(playlist[index])}`){
+        } else if (a.src != `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
             // console.log('setted src',a.src,`http://localhost:${PORT}/${encodeURI(playlist[index])}`)
             a.src = playlist[index]
         }
         a.play()
+        for (let i = 0; i < playlist_circle.length; i++) {
+            if (i == index + 1) { playlist_circle[index].style.border = '10px #fff solid' } else if (i != index + 1) { playlist_circle[i].style.border = '10px #00C2FF solid' }
+        }
     }
 }
 function next() {
-    if (index<playlist.length-1) {
+    if (index < playlist.length - 1) {
         index++
-        playBtnFunc(index,true)
+        playBtnFunc(index, true)
     }
 }
 function previous() {
-    if (index>0) {
+    if (index > 0) {
         index--
-        playBtnFunc(index,true)
+        playBtnFunc(index, true)
     }
 }
 function convertHMS(value) {
-const sec = parseInt(value, 10); // convert value to number if it's string
-let hours   = Math.floor(sec / 3600); // get hours
-let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
-let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
-// add 0 if value < 10; Example: 2 => 02
-if (hours   < 10) {hours   = "0"+hours;}
-if (minutes < 10) {minutes = "0"+minutes;}
-if (seconds < 10) {seconds = "0"+seconds;}
-return minutes+':'+seconds; // Return is MM : SS
+    const sec = parseInt(value, 10); // convert value to number if it's string
+    let hours = Math.floor(sec / 3600); // get hours
+    let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+    let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+    // add 0 if value < 10; Example: 2 => 02
+    if (hours < 10) { hours = "0" + hours; }
+    if (minutes < 10) { minutes = "0" + minutes; }
+    if (seconds < 10) { seconds = "0" + seconds; }
+    return minutes + ':' + seconds; // Return is MM : SS
 }
 
 function progressBar() {
-//  time part
+    //  time part
     let x = convertHMS(a.currentTime)
     let y = convertHMS(a.duration)
     let p1 = document.getElementById('currTime')
     let p2 = document.getElementById('duration')
     p1.innerText = x
     p2.innerText = y
-    if(y=='NaN:NaN'){p2.innerText = '00:00'}else{p2.innerText = y}
+    if (y == 'NaN:NaN') { p2.innerText = '00:00' } else { p2.innerText = y }
 
-//  bar part
+    //  bar part
     let black_bar = document.getElementById('black-bar')
     let main_bar = document.getElementById('main-bar')
-    let p = a.currentTime*100/a.duration
+    let p = a.currentTime * 100 / a.duration
     main_bar.style.width = `${p}%`
-    
+
 }
 setInterval(() => {
     progressBar()

@@ -56,6 +56,15 @@ p{
     margin-left: 2.5vw;
     cursor: pointer;
 }
+.playlist_circle{
+    width: 15px;
+    height: 15px;
+    border: 10px #00C2FF solid;
+    border-radius: 100vw;
+    order: 1;
+    margin-left: 2.5vw;
+    cursor: pointer;
+}
 .rembtn{
     background-image: url(delete.png);
     background-size: cover;
