@@ -199,7 +199,7 @@ p{
 }
 #playing_img{
     background-image: url(bg.jpg);
-    background-size: cover;
+    background-size: contain;
     height: 65vh;
     width: 20vw;
     margin: auto;
