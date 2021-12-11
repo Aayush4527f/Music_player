@@ -28,6 +28,9 @@ let a = document.getElementById('audio')
 let songitem = document.getElementsByClassName('playlist_songitem')
 let song = document.getElementsByClassName('playlist_song')
 let playlist_circle = document.getElementsByClassName('playlist_circle')
+let circle = document.getElementsByClassName('circle')
+let MyPlaylist = document.getElementById('MyPlaylist')
+let songsdiv = document.getElementById('songs')
 const PORT = 8000
 const playlistDiv = document.getElementById('playlist')
 const allSongsDiv = document.getElementById('songs')
@@ -105,7 +108,6 @@ function addSong(s, p) {
     song.className = 'playlist_song'
     song.innerText = song_name
 
-    // circle.className = 'circle'
     circle.className = 'playlist_circle'
 
     rembtn.className = 'rembtn'
@@ -226,3 +228,16 @@ function progressBar() {
 setInterval(() => {
     progressBar()
 }, 100);
+
+
+function changebtn() {
+    if (songsdiv.style.display != "none") {
+        songsdiv.style.display = 'none'
+        MyPlaylist.style.display = 'block'
+        document.getElementById('changebtn').style.backgroundColor = '#17313A'
+    }else if(songsdiv.style.display == "none"){
+        songsdiv.style.display = 'block'
+        MyPlaylist.style.display = 'none'
+        document.getElementById('changebtn').style.backgroundColor = '#000000'
+    }
+}

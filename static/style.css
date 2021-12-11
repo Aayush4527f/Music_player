@@ -40,12 +40,13 @@ p{
 .song{
     color: white;
     order: 2;
-    margin: auto 0 auto 2.5vw;
+    margin: auto 2.5vw;
 }
 .playlist_song{
     color: white;
     order: 2;
     margin: auto 0 auto 0;
+    text-align: center;
 }
 .circle{
     width: 15px;
@@ -94,7 +95,7 @@ p{
 #playlist{
     width: 46.8vw;
     height: 56vh;
-    /* margin: auto; */
+    margin: auto;
     overflow: scroll;
     margin-top: 2.5vh;
     display: flex;
@@ -118,6 +119,9 @@ p{
     font-size: large;
     margin-top: 1vh;
 }
+
+
+
 #bardiv{
     display: flex;
     flex-direction: row;
@@ -142,6 +146,8 @@ p{
     color: white;
     margin-left: 1vw;
 }
+
+
 
 
 .btn{
@@ -207,6 +213,21 @@ p{
 }
 
 
+#changebtn{
+    width: 50px;
+    height: 50px;
+    background-image: url(flip.png);
+    background-color: black;
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+    display: none;
+    position: fixed;
+    top: 2%;
+    left: 2%;
+}
+
+
 
 
 
@@ -215,4 +236,70 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+@media(max-width:1279px){
+    #changebtn{
+        display: inline-block;
+    }
+    *{
+        font-size: 32.5px;
+    }
+    #playing{
+        display: none;
+    }
+    #MyPlaylist{
+        display: none;
+        width: 100vw;
+    }
+    #songs{
+        width: 100vw;
+    } 
+    .circle{
+        width: 25px;
+        height: 25px;
+    }
+    .playlist_circle{
+        width: 25px;
+        height: 25px;
+    }
+    .playlist_songitem{
+        width: 80vw;
+    }
+    #playlist{
+        width: 80vw;
+    }
+    #black-bar{
+        width: 75vw;
+    }
+    .btn{
+        width: 60px;
+        height: 60px;
+    }
+    #prevbtn{
+        width: 37.5px;
+        height: 37.5px;
+    }
+    #nextbtn{
+        width: 37.5px;
+        height: 37.5px;
+    }
+}
+@media(max-width:900px){
+    *{
+        font-size: 27.5px;
+    }
+    .btn{
+        width: 48px;
+        height: 48px;
+    }
+    #prevbtn{
+        width: 30px;
+        height: 30px;
+    }
+    #nextbtn{
+        width: 30px;
+        height: 30px;
+    }
 }
