@@ -167,6 +167,13 @@ function shuffle() {
 }
 
 function playBtnFunc(index, p) {
+
+    if (a.paused) {
+        document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
+    } else if(!a.paused){
+        document.getElementById('playbtn').style.backgroundImage = 'url(play.svg)'
+    }
+
     if (!a.paused && a.currentTime > 1 && !p) {
         a.pause()
         // console.log('paused')
