@@ -164,6 +164,7 @@ function shuffle() {
     }
     index = 0
     playBtnFunc(index, true)
+    document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
 }
 
 function playBtnFunc(index, p) {
@@ -196,12 +197,14 @@ function next() {
         index++
         playBtnFunc(index, true)
     }
+    document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
 }
 function previous() {
     if (index > 0) {
         index--
         playBtnFunc(index, true)
     }
+    document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
 }
 function convertHMS(value) {
     const sec = parseInt(value, 10); // convert value to number if it's string
