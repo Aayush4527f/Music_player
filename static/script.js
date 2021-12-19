@@ -70,7 +70,7 @@ function initialise() {
         song.innerText = song_name
 
         circle.className = 'circle'
-        circle.addEventListener('click', () => { addSong(songs[i], true); playlistDiv.scrollTop = playlistDiv.scrollHeight;})
+        circle.addEventListener('click', () => { addSong(songs[i], true); playlistDiv.scrollTop = playlistDiv.scrollHeight; })
 
         allSongsDiv.appendChild(songitem)
 
@@ -171,7 +171,7 @@ function playBtnFunc(index, p) {
 
     if (a.paused) {
         document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
-    } else if(!a.paused){
+    } else if (!a.paused) {
         document.getElementById('playbtn').style.backgroundImage = 'url(play.svg)'
     }
 
@@ -188,7 +188,12 @@ function playBtnFunc(index, p) {
         }
         a.play()
         for (let i = 0; i < playlist_circle.length; i++) {
-            if (i == index + 1) { playlist_circle[index].style.border = '10px #fff solid' } else if (i != index + 1) { playlist_circle[i].style.border = '10px #00C2FF solid' }
+            if (i == index + 1) {
+                playlist_circle[index].style.border = '10px #fff solid'
+            }
+            else {
+                playlist_circle[index].style.border = '10px #00C2FF solid'
+            }
         }
     }
 }
@@ -245,7 +250,7 @@ function changebtn() {
         songsdiv.style.display = 'none'
         MyPlaylist.style.display = 'block'
         document.getElementById('changebtn').style.backgroundColor = '#17313A'
-    }else if(songsdiv.style.display == "none"){
+    } else if (songsdiv.style.display == "none") {
         songsdiv.style.display = 'block'
         MyPlaylist.style.display = 'none'
         document.getElementById('changebtn').style.backgroundColor = '#000000'
