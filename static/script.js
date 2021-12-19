@@ -188,11 +188,11 @@ function playBtnFunc(index, p) {
         }
         a.play()
         for (let i = 0; i < playlist_circle.length; i++) {
-            if (i == index + 1) {
-                playlist_circle[index].style.border = '10px #fff solid'
+            if (i == index) {
+                playlist_circle[i].style.border = '10px #fff solid'
             }
-            else {
-                playlist_circle[index].style.border = '10px #00C2FF solid'
+            else if (i != index) {
+                playlist_circle[i].style.border = '10px #00C2FF solid'
             }
         }
     }
