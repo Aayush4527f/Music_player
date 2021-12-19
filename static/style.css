@@ -35,7 +35,7 @@ p{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 3vh auto;
+    margin: 1.5vh auto;
 }
 .song{
     color: white;
@@ -232,16 +232,19 @@ p{
 
 
 
-
 .flexcenter{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* I gotta improve responsiveness */
 
 @media(max-width:1279px){
-    #changebtn{
+    *{
+        display: none;
+    }
+    /* #changebtn{
         display: inline-block;
     }
     *{
@@ -285,9 +288,9 @@ p{
     #nextbtn{
         width: 37.5px;
         height: 37.5px;
-    }
+    } */
 }
-@media(max-width:900px){
+/* @media(max-width:900px){
     *{
         font-size: 27.5px;
     }
@@ -303,4 +306,4 @@ p{
         width: 30px;
         height: 30px;
     }
-}
+} */
