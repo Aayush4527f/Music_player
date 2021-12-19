@@ -109,6 +109,11 @@ function addSong(s, p) {
     song.innerText = song_name
 
     circle.className = 'playlist_circle'
+    circle.addEventListener('click',()=>{
+        index = playlist.indexOf(s)
+        playBtnFunc(index, true)
+        document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
+    })
 
     rembtn.className = 'rembtn'
     rembtn.addEventListener('click', () => { delSong(songs[iofs]) })
