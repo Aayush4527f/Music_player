@@ -26,6 +26,7 @@ let songs = []
 fs.readdir(testFolder, (err, files) => {
     files.forEach(file => {
       songs.push(file);
+    //   console.log(file)
     });
 });
 
@@ -88,6 +89,7 @@ app.get('/',(req,res)=>{
     res.render('index.ejs')
 })
 app.get('/saved',(req,res)=>{
+    console.log(req.cookies.playlist)
     res.json(req.cookies.playlist)
 })
 

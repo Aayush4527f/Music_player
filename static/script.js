@@ -47,7 +47,7 @@ fetch('/songslist').then((response) => response.json())
 
 fetch('/saved').then((response) => response.json())
     .then((data) => {
-        something = JSON.parse(data)
+        let something = JSON.parse(data)
         for (let i = 0; i < something.length; i++) {
             savedSongs.push(something[i])
         }
@@ -60,6 +60,7 @@ function loadPlaylist() {
 function initialise() {
     for (let i = 0; i < songs.length; i++) {
         let song_name = songs[i].substring(0, songs[i].length - 4)
+        // console.log(song_name)
 
         let songitem = document.createElement('div')
         let song = document.createElement('div')
