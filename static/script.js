@@ -55,6 +55,7 @@ fetch('/saved').then((response) => response.json())
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
         addSong(savedSongs[i], true)
+        // console.log(savedSongs.length)
     }
 }
 function initialise() {
@@ -98,6 +99,7 @@ function addSong(s, p) {
     if (p) { playlist.push(songs[iofs]) }
 
     let song_name = songs[iofs].substring(0, songs[iofs].length - 4)
+    console.log(songs[iofs])
 
     let newSongitem = document.createElement('div')
     let song = document.createElement('div')
