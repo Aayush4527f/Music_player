@@ -55,7 +55,6 @@ fetch('/saved').then((response) => response.json())
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
         addSong(savedSongs[i], true)
-        // console.log(savedSongs.length)
     }
 }
 function initialise() {
