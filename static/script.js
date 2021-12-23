@@ -13,12 +13,14 @@
     ------------------------------------------------------------------
     make playlist draggable
     ------------------------------------------------------------------
-    progress bar
+    progress bar                                (done for now atleast)
     ------------------------------------------------------------------
-    start and end time
+    start and end time                          (done for now atleast)
     ------------------------------------------------------------------
-    thumbnail and name of song on right side
-    */
+    change shuffle to how it actually should be 
+    ------------------------------------------------------------------
+    convert HMS
+*/
 
 let songs = []
 let savedSongs = []
@@ -79,10 +81,10 @@ function initialise() {
         songitem.appendChild(song)
         songitem.appendChild(circle)
     }
-    loadPlaylist()
 }
 setTimeout(() => {
     initialise()
+    loadPlaylist()
 }, 100);
 
 function savePlaylist() {
@@ -99,7 +101,7 @@ function addSong(s, p) {
     if (p) { playlist.push(songs[iofs]) }
 
     let song_name = songs[iofs].substring(0, songs[iofs].length - 4)
-    console.log(songs[iofs])
+    // console.log(songs[iofs])
 
     let newSongitem = document.createElement('div')
     let song = document.createElement('div')
@@ -111,7 +113,7 @@ function addSong(s, p) {
     song.innerText = song_name
 
     circle.className = 'playlist_circle'
-    circle.addEventListener('click',()=>{
+    circle.addEventListener('click', () => {
         index = playlist.indexOf(s)
         playBtnFunc(index, true)
         document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
@@ -153,27 +155,6 @@ function clearPlaylist(p) {
     index = 0
     playBtnFunc(index, true)
 }
-
-function shuffle() {
-    let currentIndex = songitem.length, randomIndex;
-    while (currentIndex != 0) {
-
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
-    }
-    for (const x of songitem) {
-        clearPlaylist(false)
-    }
-    for (const x of playlist) {
-        addSong(x, false)
-    }
-    index = 0
-    playBtnFunc(index, true)
-    document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
-}
-
 function playBtnFunc(index, p) {
 
     if (a.paused) {
@@ -204,6 +185,26 @@ function playBtnFunc(index, p) {
         }
     }
 }
+function shuffle() {
+    let currentIndex = songitem.length, randomIndex;
+    while (currentIndex != 0) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
+    }
+    for (const x of songitem) {
+        clearPlaylist(false)
+    }
+    for (const x of playlist) {
+        addSong(x, false)
+    }
+    index = 0
+    playBtnFunc(index, true)
+    document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
+}
+
 function next() {
     if (index < playlist.length - 1) {
         index++
@@ -219,6 +220,8 @@ function previous() {
     document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
 }
 function convertHMS(value) {
+    //  _________________________________________improve this function___________________________________________
+
     const sec = parseInt(value, 10); // convert value to number if it's string
     let hours = Math.floor(sec / 3600); // get hours
     let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
@@ -231,7 +234,7 @@ function convertHMS(value) {
 }
 
 function progressBar() {
-    //  time part
+    //  time display part
     let x = convertHMS(a.currentTime)
     let y = convertHMS(a.duration)
     let p1 = document.getElementById('currTime')
@@ -241,11 +244,9 @@ function progressBar() {
     if (y == 'NaN:NaN') { p2.innerText = '00:00' } else { p2.innerText = y }
 
     //  bar part
-    let black_bar = document.getElementById('black-bar')
     let main_bar = document.getElementById('main-bar')
     let p = a.currentTime * 100 / a.duration
     main_bar.style.width = `${p}%`
-
 }
 setInterval(() => {
     progressBar()

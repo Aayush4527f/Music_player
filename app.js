@@ -89,7 +89,7 @@ app.get('/',(req,res)=>{
     res.render('index.ejs')
 })
 app.get('/saved',(req,res)=>{
-    console.log(req.cookies.playlist)
+    // console.log(req.cookies.playlist)
     res.json(req.cookies.playlist)
 })
 
