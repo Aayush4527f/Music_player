@@ -25,6 +25,7 @@
 let songs = []
 let savedSongs = []
 let playlist = []
+let prev_playlist = []
 let index = 0
 let a = document.getElementById('audio')
 let songitem = document.getElementsByClassName('playlist_songitem')
@@ -48,16 +49,17 @@ fetch('/songslist').then((response) => response.json())
     });
 
 fetch('/saved').then((response) => response.json())
-    .then((data) => {
-        let something = JSON.parse(data)
-        for (let i = 0; i < something.length; i++) {
-            savedSongs.push(something[i])
-        }
-    });
+.then((data) => {
+    let something = JSON.parse(data)
+    for (let i = 0; i < something.length; i++) {
+        savedSongs.push(something[i])
+    }
+});
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
         addSong(savedSongs[i], true)
     }
+    prev_playlist = playlist.slice()
 }
 function initialise() {
     for (let i = 0; i < songs.length; i++) {
@@ -76,7 +78,7 @@ function initialise() {
         circle.addEventListener('click', () => { addSong(songs[i], true); playlistDiv.scrollTop = playlistDiv.scrollHeight; })
 
         allSongsDiv.appendChild(songitem)
-
+        
         songitem.className = 'songitem'
         songitem.appendChild(song)
         songitem.appendChild(circle)
@@ -185,20 +187,34 @@ function playBtnFunc(index, p) {
         }
     }
 }
+let shuf_state = 0
 function shuffle() {
-    let currentIndex = songitem.length, randomIndex;
-    while (currentIndex != 0) {
 
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
-    }
-    for (const x of songitem) {
-        clearPlaylist(false)
-    }
-    for (const x of playlist) {
-        addSong(x, false)
+    if (shuf_state == 1) {
+        playlist = prev_playlist.slice()
+        for (const x of songitem) {
+            clearPlaylist(false)
+        }
+        for (const x of playlist) {
+            addSong(x, false)
+        }
+        shuf_state = 0
+    } else if(shuf_state == 0){
+        let currentIndex = playlist.length, randomIndex;
+        while (currentIndex != 0) {
+            
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            
+            [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
+        }
+        for (const x of songitem) {
+            clearPlaylist(false)
+        }
+        for (const x of playlist) {
+            addSong(x, false)
+        }   
+        shuf_state = 1
     }
     index = 0
     playBtnFunc(index, true)
