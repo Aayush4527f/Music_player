@@ -17,9 +17,9 @@
     ------------------------------------------------------------------
     start and end time                          (done for now atleast)
     ------------------------------------------------------------------
-    change shuffle to how it actually should be 
+    change shuffle to how it actually should be (done for now atleast)
     ------------------------------------------------------------------
-    convert HMS
+    convert HMS                                 (done for now atleast)
 */
 
 let songs = []
@@ -246,9 +246,8 @@ function convertHMS(value) {
     if (hours < 10) { hours = "0" + hours; }
     if (minutes < 10) { minutes = "0" + minutes; }
     if (seconds < 10) { seconds = "0" + seconds; }
-    return minutes + ':' + seconds; // Return is MM : SS
+    if(sec >= 3600){return hours + ':' + minutes + ':' + seconds}else{return minutes + ':' + seconds;}
 }
-
 function progressBar() {
     //  time display part
     let x = convertHMS(a.currentTime)
