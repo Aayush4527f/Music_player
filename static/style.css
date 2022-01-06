@@ -138,7 +138,7 @@ p{
 }
 #black-bar{
     height: 1vh;
-    width: 40vw;
+    width: 80vw;
     margin: auto;
     background-color: black;
 }
@@ -241,69 +241,20 @@ p{
 /* I gotta improve responsiveness */
 
 @media(max-width:1279px){
-    *{
-        display: none;
-    }
-    /* #changebtn{
-        display: inline-block;
-    }
-    *{
-        font-size: 32.5px;
-    }
-    #playing{
+    /* #playing{
         display: none;
     }
     #MyPlaylist{
-        display: none;
         width: 100vw;
+        display: none;
     }
     #songs{
         width: 100vw;
-    } 
-    .circle{
-        width: 25px;
-        height: 25px;
     }
-    .playlist_circle{
-        width: 25px;
-        height: 25px;
+    #changebtn{
+        display: inline-block;
     }
     .playlist_songitem{
         width: 80vw;
-    }
-    #playlist{
-        width: 80vw;
-    }
-    #black-bar{
-        width: 75vw;
-    }
-    .btn{
-        width: 60px;
-        height: 60px;
-    }
-    #prevbtn{
-        width: 37.5px;
-        height: 37.5px;
-    }
-    #nextbtn{
-        width: 37.5px;
-        height: 37.5px;
     } */
 }
-/* @media(max-width:900px){
-    *{
-        font-size: 27.5px;
-    }
-    .btn{
-        width: 48px;
-        height: 48px;
-    }
-    #prevbtn{
-        width: 30px;
-        height: 30px;
-    }
-    #nextbtn{
-        width: 30px;
-        height: 30px;
-    }
-} */
