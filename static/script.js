@@ -1,27 +1,3 @@
-/*
-    remove                                      (done for now atleast)
-    ------------------------------------------------------------------
-    clear playlist                              (done for now atleast)
-    ------------------------------------------------------------------
-    shuffle playlist                            (done for now atleast)
-    ------------------------------------------------------------------
-    play button                                 (done for now atleast)
-    ------------------------------------------------------------------
-    previous btn                                (done for now atleast)
-    ------------------------------------------------------------------
-    next btn                                    (done for now atleast)
-    ------------------------------------------------------------------
-    make playlist draggable
-    ------------------------------------------------------------------
-    progress bar                                (done for now atleast)
-    ------------------------------------------------------------------
-    start and end time                          (done for now atleast)
-    ------------------------------------------------------------------
-    change shuffle to how it actually should be (done for now atleast)
-    ------------------------------------------------------------------
-    convert HMS                                 (done for now atleast)
-*/
-
 let songs = []
 let savedSongs = []
 let playlist = []
