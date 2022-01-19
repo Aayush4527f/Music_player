@@ -45,7 +45,7 @@ p{
 .playlist_song{
     color: white;
     order: 2;
-    margin: 0.5vw 0 0.5vw 0;
+    margin: auto 0.5vw auto 0.5vw;
     text-align: center;
 }
 .circle{
@@ -144,7 +144,7 @@ p{
 }
 #black-bar{
     height: 1vh;
-    width: 80vw;
+    width: 37.5vw;
     margin: auto;
     background-color: black;
 }
@@ -255,9 +255,11 @@ p{
     align-items: center;
 }
 
-/* I gotta improve responsiveness */
 
 @media(max-width:1279px){
+    #black-bar{
+        width: 70vw;
+    }
     #playing{
         display: none;
     }
