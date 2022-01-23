@@ -25,12 +25,12 @@ fetch('/songslist').then((response) => response.json())
     });
 
 fetch('/saved').then((response) => response.json())
-.then((data) => {
-    let something = JSON.parse(data)
-    for (let i = 0; i < something.length; i++) {
-        savedSongs.push(something[i])
-    }
-});
+    .then((data) => {
+        let something = JSON.parse(data)
+        for (let i = 0; i < something.length; i++) {
+            savedSongs.push(something[i])
+        }
+    });
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
         addSong(savedSongs[i], true)
@@ -54,7 +54,7 @@ function initialise() {
         circle.addEventListener('click', () => { addSong(songs[i], true); playlistDiv.scrollTop = playlistDiv.scrollHeight; })
 
         allSongsDiv.appendChild(songitem)
-        
+
         songitem.className = 'songitem'
         songitem.appendChild(song)
         songitem.appendChild(circle)
@@ -112,14 +112,13 @@ function addSong(s, p) {
 
 function delSong(songSrc) {
     playlist.splice(playlist.indexOf(songSrc), 1)
-
     let songnames = []
     for (let i = 0; i < song.length; i++) {
         songnames.push(song[i].innerText)
     }
     let iofs = songnames.indexOf(songSrc.substring(0, songSrc.length - 4))
     songitem[iofs].remove()
-    a.pause()
+    // a.pause()
 }
 
 
@@ -141,7 +140,7 @@ function playBtnFunc(index, p) {
         document.getElementById('playbtn').style.backgroundImage = 'url(play.svg)'
     }
 
-    if (!a.paused && a.currentTime > 1 && !p) {
+    if (!a.paused && a.currentTime > 0.01 && !p) {
         a.pause()
         // console.log('paused')
     } else {
@@ -175,13 +174,13 @@ function shuffle() {
             addSong(x, false)
         }
         shuf_state = 0
-    } else if(shuf_state == 0){
+    } else if (shuf_state == 0) {
         let currentIndex = playlist.length, randomIndex;
         while (currentIndex != 0) {
-            
+
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
-            
+
             [playlist[randomIndex], playlist[currentIndex]] = [playlist[currentIndex], playlist[randomIndex]];
         }
         for (const x of songitem) {
@@ -189,7 +188,7 @@ function shuffle() {
         }
         for (const x of playlist) {
             addSong(x, false)
-        }   
+        }
         shuf_state = 1
     }
     index = 0
@@ -222,22 +221,39 @@ function convertHMS(value) {
     if (hours < 10) { hours = "0" + hours; }
     if (minutes < 10) { minutes = "0" + minutes; }
     if (seconds < 10) { seconds = "0" + seconds; }
-    if(sec >= 3600){return hours + ':' + minutes + ':' + seconds}else{return minutes + ':' + seconds;}
+    if (sec >= 3600) { return hours + ':' + minutes + ':' + seconds } else { return minutes + ':' + seconds; }
 }
 function progressBar() {
-    //  time display part
     let x = convertHMS(a.currentTime)
     let y = convertHMS(a.duration)
     let p1 = document.getElementById('currTime')
     let p2 = document.getElementById('duration')
-    p1.innerText = x
-    p2.innerText = y
-    if (y == 'NaN:NaN') { p2.innerText = '00:00' } else { p2.innerText = y }
-
-    //  bar part
     let main_bar = document.getElementById('main-bar')
     let p = a.currentTime * 100 / a.duration
-    main_bar.style.width = `${p}%`
+    let loading = document.getElementById('loading')
+    let black_bar = document.getElementById('black-bar')
+
+
+    //loading part
+    if (a.buffered.length == 0) {
+        loading.style.display = 'block'
+        main_bar.style.display = 'none'
+        black_bar.style.display = 'none'
+    } else {
+        loading.style.display = 'none'
+        main_bar.style.display = ''
+        black_bar.style.display = ''
+
+        //  time display part
+        p1.innerText = x
+        p2.innerText = y
+        if (y == 'NaN:NaN') { p2.innerText = '00:00' } else { p2.innerText = y }
+
+        //  bar part
+        main_bar.style.width = `${p}%`
+    }
+
+
 }
 setInterval(() => {
     progressBar()

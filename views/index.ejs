@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Music player</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <button id="changebtn" onclick="changebtn()"></button>
     <div id="songs">
@@ -20,9 +22,10 @@
         </div>
         <div id="bardiv">
             <p id="currTime"></p>
+            <div id="loading">Loading...</div>
             <div id="black-bar">
                 <div id="main-bar"></div>
-              </div>
+            </div>
 
 
             <p id="duration"></p>
@@ -43,4 +46,5 @@
     <audio src="" id="audio" onended="next()"></audio>
 </body>
 <script src="script.js"></script>
+
 </html>
