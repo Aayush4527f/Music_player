@@ -211,8 +211,6 @@ function previous() {
     document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
 }
 function convertHMS(value) {
-    //  _________________________________________improve this function___________________________________________
-
     const sec = parseInt(value, 10); // convert value to number if it's string
     let hours = Math.floor(sec / 3600); // get hours
     let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
@@ -239,10 +237,14 @@ function progressBar() {
         loading.style.display = 'block'
         main_bar.style.display = 'none'
         black_bar.style.display = 'none'
+        p1.style.display = 'none'
+        p2.style.display = 'none'
     } else {
         loading.style.display = 'none'
         main_bar.style.display = ''
         black_bar.style.display = ''
+        p1.style.display = ''
+        p2.style.display = ''
 
         //  time display part
         p1.innerText = x
