@@ -239,12 +239,14 @@ function progressBar() {
         black_bar.style.display = 'none'
         p1.style.display = 'none'
         p2.style.display = 'none'
+        document.getElementById('playbtn').style.display = 'none'
     } else {
         loading.style.display = 'none'
         main_bar.style.display = ''
         black_bar.style.display = ''
         p1.style.display = ''
         p2.style.display = ''
+        document.getElementById('playbtn').style.display = ''
 
         //  time display part
         p1.innerText = x
