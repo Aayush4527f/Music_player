@@ -154,6 +154,8 @@ p{
 }
 #loading{
     color: white;
+    width: auto;
+    margin: auto;
 }
 
 
