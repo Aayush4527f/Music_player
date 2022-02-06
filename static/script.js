@@ -112,13 +112,17 @@ function addSong(s, p) {
 
 function delSong(songSrc) {
     playlist.splice(playlist.indexOf(songSrc), 1)
+    prev_playlist.splice(playlist.indexOf(songSrc), 1)
     let songnames = []
     for (let i = 0; i < song.length; i++) {
         songnames.push(song[i].innerText)
     }
     let iofs = songnames.indexOf(songSrc.substring(0, songSrc.length - 4))
     songitem[iofs].remove()
-    // a.pause()
+    if(iofs == index){
+        playBtnFunc(index,true)
+        document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
+    }
 }
 
 
@@ -130,7 +134,7 @@ function clearPlaylist(p) {
         songitem[j].remove()
     }
     index = 0
-    playBtnFunc(index, true)
+    playBtnFunc(index,p)
 }
 function playBtnFunc(index, p) {
 
@@ -233,7 +237,7 @@ function progressBar() {
 
 
     //loading part
-    if (a.buffered.length == 0) {
+    if (a.buffered.length == 0 && a.src != 'http://localhost:8000/') {
         loading.style.display = 'block'
         main_bar.style.display = 'none'
         black_bar.style.display = 'none'
