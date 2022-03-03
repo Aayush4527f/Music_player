@@ -10,6 +10,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { render } = require('ejs');
+//using body and cookie parsers
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //     }
 // })
 
+//reading all songs
 let songs = []
 fs.readdir(testFolder, (err, files) => {
     files.forEach(file => {
@@ -31,7 +33,7 @@ fs.readdir(testFolder, (err, files) => {
 });
 
 
-
+//serving static files and setting ejs as renderer
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, testFolder)));
 app.set('view engine' , 'ejs')
