@@ -233,7 +233,7 @@ function progressBar() {
 
 
     //loading part
-    if (a.buffered.length == 0 && a.src != 'http://localhost:8000/') {
+    if (a.buffered.length == 0 && a.src != 'https://aayushnotfound.github.io/Music/songs/undefined' || a.src != "https://aayushnotfound.github.io/Music/") {
         loading.style.display = 'block'
         main_bar.style.display = 'none'
         black_bar.style.display = 'none'
