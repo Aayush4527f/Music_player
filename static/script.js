@@ -1,8 +1,10 @@
+// VARIABLES
 let songs = []
 let savedSongs = []
 let playlist = []
 let prev_playlist = []
 let index = 0
+// DOCUMENT VARIABLES
 let a = document.getElementById('audio')
 let songitem = document.getElementsByClassName('playlist_songitem')
 let song = document.getElementsByClassName('playlist_song')
@@ -10,13 +12,17 @@ let playlist_circle = document.getElementsByClassName('playlist_circle')
 let circle = document.getElementsByClassName('circle')
 let MyPlaylist = document.getElementById('MyPlaylist')
 let songsdiv = document.getElementById('songs')
-const PORT = 8000
 const playlistDiv = document.getElementById('playlist')
 const allSongsDiv = document.getElementById('songs')
+// port
+const PORT = 8000
+
+// adding event listners
 document.getElementById('playbtn').addEventListener('click', () => { playBtnFunc(index) })
 document.getElementById('nextbtn').addEventListener('click', () => { next() })
 document.getElementById('prevbtn').addEventListener('click', () => { previous() })
 
+// fetching songs list and saved songs(from cookie)
 fetch('/songslist').then((response) => response.json())
     .then((data) => {
         for (let i = 0; i < data.length; i++) {
@@ -31,17 +37,22 @@ fetch('/saved').then((response) => response.json())
             savedSongs.push(something[i])
         }
     });
+
+// loading the songs saved in cookie
 function loadPlaylist() {
     for (let i = 0; i < savedSongs.length; i++) {
         addSong(savedSongs[i], true)
     }
     prev_playlist = playlist.slice()
 }
+
 function initialise() {
     for (let i = 0; i < songs.length; i++) {
+        // cutting '.mp3' from song url
         let song_name = songs[i].substring(0, songs[i].length - 4)
         // console.log(song_name)
 
+        // creating songitem div with all its necessary elements
         let songitem = document.createElement('div')
         let song = document.createElement('div')
         let circle = document.createElement('div')
@@ -70,11 +81,13 @@ function addSong(s, p) {
     // iofs = index of song
     let iofs = songs.indexOf(s)
 
+    // adding song in playlist arrays
     if (p) { playlist.push(songs[iofs]) }
+    if (p) { prev_playlist.push(songs[iofs]) }
 
     let song_name = songs[iofs].substring(0, songs[iofs].length - 4)
-    // console.log(songs[iofs])
 
+    // adding song i UI
     let newSongitem = document.createElement('div')
     let song = document.createElement('div')
     let circle = document.createElement('div')
@@ -104,21 +117,28 @@ function addSong(s, p) {
 }
 
 function delSong(songSrc) {
+    // splice => removes a specific number of values from a specific locations in an array
     playlist.splice(playlist.indexOf(songSrc), 1)
     prev_playlist.splice(playlist.indexOf(songSrc), 1)
+
+    // creating a temp copy of original song list so that original remains untouched
     let songnames = []
     for (let i = 0; i < song.length; i++) {
         songnames.push(song[i].innerText)
     }
+    // removing song from UI
     let iofs = songnames.indexOf(songSrc.substring(0, songSrc.length - 4))
     songitem[iofs].remove()
-    if(iofs == index){
-        playBtnFunc(index,true)
+    
+    // if the song playing is deleted then the next one will take it's place and that will be played
+    if (iofs == index) {
+        playBtnFunc(index, true)
         document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
     }
 }
 
 function clearPlaylist(p) {
+    // just running delsong in a for loop and setting a.src to normal at the end
     let l = document.getElementsByClassName('playlist_songitem').length
     for (let i = 0; i < l; i++) {
         if (p) { playlist.shift() }
@@ -126,31 +146,35 @@ function clearPlaylist(p) {
         songitem[j].remove()
     }
     index = 0
-    playBtnFunc(index,true)
+    playBtnFunc(index, true)
     a.src = 'http://localhost:8000/'
     document.getElementById('playbtn').style.backgroundImage = 'url(play.svg)'
 }
-
 function playBtnFunc(index, p) {
-
+    // the 'p' variable ensure that the song will be playing when it's true no matter how many times the function is called or what's the state of song
+    
+    // changing the button image accordingly
     if (a.paused) {
         document.getElementById('playbtn').style.backgroundImage = 'url(pause.svg)'
     } else if (!a.paused) {
         document.getElementById('playbtn').style.backgroundImage = 'url(play.svg)'
     }
-
+    // if it's playing and 'p' is false then pause
     if (!a.paused && a.currentTime > 0.01 && !p) {
         a.pause()
-        // console.log('paused')
-    } else {
+    }
+    else {
+        // if the source is already set according to the index then just play the song
         if (a.src == `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
             a.play()
-            // console.log('played',a.src,`http://localhost:${PORT}/${encodeURI(playlist[index])}`)
-        } else if (a.src != `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
-            // console.log('setted src',a.src,`http://localhost:${PORT}/${encodeURI(playlist[index])}`)
+        }
+        // if the source is not set according to the index then set it
+        else if (a.src != `http://localhost:${PORT}/${encodeURI(playlist[index])}`) {
             a.src = playlist[index]
         }
         a.play()
+
+        // UI stuff (changing the color of circle of the song which is playing currently)
         for (let i = 0; i < playlist_circle.length; i++) {
             if (i == index) {
                 playlist_circle[i].style.border = '10px #fff solid'
@@ -161,6 +185,8 @@ function playBtnFunc(index, p) {
         }
     }
 }
+
+// an on/off kind of shuffle functionality where you toggle between states
 let shuf_state = 0
 function shuffle() {
 
