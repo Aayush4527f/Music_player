@@ -22,11 +22,14 @@ document.getElementById('playbtn').addEventListener('click', () => { playBtnFunc
 document.getElementById('nextbtn').addEventListener('click', () => { next() })
 document.getElementById('prevbtn').addEventListener('click', () => { previous() })
 
+// playlist cookie
+if(!document.cookie){savePlaylist()}
+
 // fetching songs list and saved songs(from cookie)
 fetch('/songslist').then((response) => response.json())
-    .then((data) => {
-        for (let i = 0; i < data.length; i++) {
-            songs.push(data[i])
+.then((data) => {
+    for (let i = 0; i < data.length; i++) {
+        songs.push(data[i])
         }
     });
 
