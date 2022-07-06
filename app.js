@@ -42,6 +42,6 @@ app.get('/saved',(req,res)=>{
 })
 
 // starting the server
-app.listen(process.env.PORT, ()=> {
-    console.log(`server started on port ${process.env.PORT}`);
+app.listen(process.env.PORT || 8000, ()=> {
+    console.log(`server started on port ${process.env.PORT || 8000}`);
 });
